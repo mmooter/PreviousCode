@@ -1,0 +1,23 @@
+{% extends 'ratings/base.html' %}
+
+{% block content %}
+<head>
+<title>feHelix: {{ category.name }}</title>
+</head>
+
+    {% if category.name %}
+    {% endif %}
+    <h1>{{ category.name }}</h1>
+    <p>{{ category.desc }}</p>   
+    {% for tool in tools %}
+        <div class = "tool">
+            <h1><a href="{% url 'ratings.views.tool_detail_by_name' tool.name  %}">{{ tool.name }}</a></h1>
+            <p>{{ tool.desc|linebreaks }}</p>
+            <p>Overall Score: {{ tool.overall_rating|floatformat:"2" }} // Documentation Quality: {{ tool.qual_of_doc|floatformat:"2" }} // Efficacy: {{ tool.efficacy|floatformat:"2" }} // Usability: {{ tool.usability|floatformat:"2" }}<br>
+                <a href="{{ tool.link }}">{{ tool.name }} Home Page</a><br>
+                {% if tool.free == True %}Free tool.<br>{% endif %}
+                {% if tool.online == True %}Online tool.{% endif %}</p>
+        </div>
+    {% endfor %}
+    <a href = "{% url 'ratings.views.nominate_tool' %}"><h3>Nominate a new tool.</h3></a>
+{% endblock %}
